@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Automatic Light</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #111;
+      margin: 0;
+      font-family: Arial, sans-serif;
+      color: white;
+      flex-direction: column;
+    }
+
+    .light {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      background-color: gray;
+      box-shadow: none;
+      transition: background-color 0.5s, box-shadow 0.5s;
+    }
+
+    .on {
+      background-color: yellow;
+      box-shadow: 0 0 60px 20px yellow;
+    }
+
+    .status {
+      margin-top: 20px;
+      font-size: 1.5em;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="light" id="lightBulb"></div>
+  <div class="status" id="statusText">Checking time...</div>
+
+  <script>
+    function updateLightStatus() {
+      const bulb = document.getElementById('lightBulb');
+      const status = document.getElementById('statusText');
+
+      const now = new Date();
+      const hours = now.getHours();
+
+      // Lights ON from 6 PM (18) to 6 AM (6)
+      if (hours >= 18 || hours < 6) {
+        bulb.classList.add('on');
+        status.textContent = "Light is ON (night time)";
+      } else {
+        bulb.classList.remove('on');
+        status.textContent = "Light is OFF (day time)";
+      }
+    }
+
+    // Run when page loads
+    updateLightStatus();
+
+    // Optional: Update every minute
+    setInterval(updateLightStatus, 60000);
+  </script>
+
+</body>
+</html>
